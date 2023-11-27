@@ -1,14 +1,14 @@
-const User = require('../models/user')
+const Siswa = require('../models/Siswa')
 
 module.exports = {
-    //get all user
+    //get all Siswa
     index: async (req, res) => {
         try {
-            const users = await User.find()
-            if(users.length > 0){
+            const siswa = await Siswa.find()
+            if(siswa.length > 0){
             res.status(200).json({
                 status: true,
-                data: users, 
+                data: siswa, 
                 method: req.method, 
                 url: req.url
                 })
@@ -23,13 +23,13 @@ module.exports = {
         }
         
       },
-      //get a user
+      //get a Siswa
       show: async (req, res) => {
         try {
-            const users = await User.findById(req.params.id)
+            const siswas = await Siswa.findById(req.params.id)
             res.json({
                 status: true,
-                data: users, 
+                data: siswas, 
                 method: req.method, 
                 url: req.url,
                 message: "Data berhasil didapat"
@@ -41,27 +41,27 @@ module.exports = {
   },
       store: async (req, res) => {
         try {
-            const users = await User.create(req.body)
+            const siswa = await Siswa.create(req.body)
             res.status(200).json({
                 status: true,
-                data: users, 
+                data: siswa, 
                 method: req.method, 
                 url: req.url,
                 message: "Data berhasil ditambahkan"
                 })
         } catch (error) {
-            res.status(400).json({sucess: false})
+            res.status(400).json({sucess: false, error: error.message})
         }
     },
         update: async (req, res) => {
             try {
-                const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+                const siswa = await Siswa.findByIdAndUpdate(req.params.id, req.body, {
                     new: true,
                     runValidators: true
                 })
                 res.json({
                     status: true,
-                    data: user, 
+                    data: siswa, 
                     method: req.method, 
                     url: req.url,
                     message: "Data berhasil diubah"
@@ -73,7 +73,7 @@ module.exports = {
       },
       delete: async (req, res) => {
         try {
-            await User.findByIdAndDelete(req.params.id)
+            await Siswa.findByIdAndDelete(req.params.id)
             res.json({
                 status: true,
                 method: req.method, 
@@ -81,7 +81,7 @@ module.exports = {
                 message: "Data berhasil dihapus"
                 })
         } catch (error) {
-            res.status(400).json({sucess: false})
+            res.status(400).json({sucess: false, error:error.message})
         }
 
       }

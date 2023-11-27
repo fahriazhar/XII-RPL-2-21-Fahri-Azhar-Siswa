@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
-const userRouter = require('./router/users')
-const port = 3000
+const userRouter = require('./router/Siswa')
+const port = 2000
 const connectDB = require('./config/db')
 
 app.use(express.json()) // for parsing application/json
